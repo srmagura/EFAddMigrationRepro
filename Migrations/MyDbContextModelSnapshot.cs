@@ -39,7 +39,7 @@ namespace EFAddMigrationRepro.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Imports");
+                    b.ToTable("Imports", (string)null);
                 });
 
             modelBuilder.Entity("EFAddMigrationRepro.Project", b =>
@@ -54,7 +54,7 @@ namespace EFAddMigrationRepro.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("EFAddMigrationRepro.Import", b =>
@@ -62,7 +62,7 @@ namespace EFAddMigrationRepro.Migrations
                     b.HasOne("EFAddMigrationRepro.Project", "Project")
                         .WithMany("Imports")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Project");

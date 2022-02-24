@@ -10,6 +10,14 @@ public class MyDbContext : DbContext
         optionsBuilder.UseSqlServer("Server=localhost;Database=EFAddMigrationRepro;TrustServerCertificate=True;MultipleActiveResultSets=True;Trusted_Connection=True;");
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Project>()
+            .HasMany(p => p.Imports)
+            .WithOne(i => i.Project)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
+
     public DbSet<Import> Imports => Set<Import>();
     public DbSet<Project> Projects => Set<Project>();
 }

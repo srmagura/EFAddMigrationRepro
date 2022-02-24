@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFAddMigrationRepro.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220224214819_InitialMigration")]
+    [Migration("20220224215241_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace EFAddMigrationRepro.Migrations
                     b.HasOne("EFAddMigrationRepro.Project", "Project")
                         .WithMany("Imports")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Project");
