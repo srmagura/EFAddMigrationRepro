@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFAddMigrationRepro.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220224214151_AddImports")]
-    partial class AddImports
+    [Migration("20220224214819_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,9 +34,45 @@ namespace EFAddMigrationRepro.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("ProjectId");
+
                     b.ToTable("Imports");
+                });
+
+            modelBuilder.Entity("EFAddMigrationRepro.Project", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("EFAddMigrationRepro.Import", b =>
+                {
+                    b.HasOne("EFAddMigrationRepro.Project", "Project")
+                        .WithMany("Imports")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("EFAddMigrationRepro.Project", b =>
+                {
+                    b.Navigation("Imports");
                 });
 #pragma warning restore 612, 618
         }

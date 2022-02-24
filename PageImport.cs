@@ -1,8 +1,8 @@
 ﻿namespace EFAddMigrationRepro;
 
-public class Import
+public class PageImport
 {
-    public Import(string filename)
+    public PageImport(string filename)
     {
         Filename = filename;
     }
@@ -10,7 +10,4 @@ public class Import
     public Guid Id { get; set; }
 
     public string Filename { get; set; }
-
-    public Guid ProjectId { get; set; }
-    public Project? Project { get; set; }
 }

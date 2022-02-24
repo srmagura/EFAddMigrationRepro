@@ -11,4 +11,5 @@ public class MyDbContext : DbContext
     }
 
     public DbSet<Import> Imports => Set<Import>();
+    public DbSet<Project> Projects => Set<Project>();
 }
